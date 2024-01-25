@@ -14,11 +14,13 @@ function App() {
   console.log(guessWord);
 
   return (
-    <div>
+    <div className='main'>
       <div className='topText'>Win or Lose</div>
       <Hangman />
       <Keyword />
-      <Keyboard />
+      <div className='keyboard'>
+        <Keyboard />
+      </div>
     </div>
   );
 }
