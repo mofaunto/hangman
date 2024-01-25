@@ -1,7 +1,19 @@
 import keys from "./keyboardKeys.json";
 import styles from "./stylesheets/Keyboard.module.css";
 
-function Keyboard() {
+type KeyboardProps = {
+  activeLetters: string[];
+  inactiveLetters: string[];
+  addGuessedLetter: (letter: string) => void;
+  disabled?: boolean;
+};
+
+function Keyboard({
+  disabled = false,
+  activeLetters,
+  inactiveLetters,
+  addGuessedLetter,
+}: KeyboardProps) {
   return (
     <div
       style={{
@@ -11,8 +23,17 @@ function Keyboard() {
       }}
     >
       {keys.map((key) => {
+        const isActive = activeLetters.includes(key);
+        const isInactive = inactiveLetters.includes(key);
         return (
-          <button className={`${styles.btn}`} key={key}>
+          <button
+            onClick={() => addGuessedLetter(key)}
+            className={`${styles.btn} ${isActive ? styles.active : ""} ${
+              isInactive ? styles.inactive : ""
+            }`}
+            disabled={isActive || isInactive || disabled}
+            key={key}
+          >
             {key}
           </button>
         );
